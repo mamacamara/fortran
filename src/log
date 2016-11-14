@@ -1,0 +1,56 @@
+procedures.f90:10.1:
+
+ function loi_normale(x,mus,sigma) result f 
+ 1
+Error: Unclassifiable statement at (1)
+procedures.f90:14.4:
+
+ end function loi_normale
+    1
+Error: Expecting END PROGRAM statement at (1)
+procedures.f90:18.1:
+
+ subroutine methode_rect(loi_normale,sigma,mu,x_min,x_max,h_step,resultat)     
+ 1
+Error: Unclassifiable statement at (1)
+procedures.f90:19.73:
+
+         integer ( kind = precI) :: N ,i                                 
+                                                                         1
+Error: Unexpected data declaration statement at (1)
+procedures.f90:20.52:
+
+  real (kind = precR) ::  x_min, x_max, h_step,f0,fN
+                                                    1
+Error: Unexpected data declaration statement at (1)
+procedures.f90:22.47:
+
+  real ( kind = precR), intent(out) :: resultat
+                                               1
+Error: Unexpected data declaration statement at (1)
+procedures.f90:34.4:
+
+ end subroutine methode_rect 
+    1
+Error: Expecting END PROGRAM statement at (1)
+procedures.f90:35.17:
+
+program mon_main 
+                 1
+Error: Unexpected PROGRAM statement at (1)
+procedures.f90:36.14:
+
+ implicit none
+              1
+Error: Unexpected IMPLICIT NONE statement at (1)
+procedures.f90:37.32:
+
+ real(kind = precR):: mafonction
+                                1
+Error: Unexpected data declaration statement at (1)
+procedures.f90:41.20:
+
+end program mon_main
+                    1
+Error: Syntax error in END PROGRAM statement at (1)
+Error: Unexpected end of file in 'procedures.f90'
