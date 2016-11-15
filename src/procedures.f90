@@ -26,13 +26,13 @@ end module constants
 		real ( kind = precR), intent(out) :: resultat
 	        integer ( kind = precI) ::  N   ,i=1                                 
         	real ( kind = precR), intent(in) :: x_mu, sigma
-		N = (x_max-x_min)*h_step 
-		f0 = loi_normale(x_min,x_mu,sigma)
-		fN = loi_normale(x_max,x_mu,sigma)
+		N = (x_max-x_min)*h_step ! Le nombre de points discret 
+		f0 = loi_normale(x_min,x_mu,sigma) !f(a)
+		fN = loi_normale(x_max,x_mu,sigma) ! f(b)
 		!i = 1
-		resultat = loi_normale(x_min,x_mu,sigma) ! h*f(x_min)
+		resultat = loi_normale(x_min,x_mu,sigma) ! on commence par f(x_min)=f(x_0) pour la methode du point de gauche
 		do while (i<N)
-			xi = x_min + h_step * i 
+			xi = x_min + h_step * i! retrouve le prochain point discret 
 			resultat = resultat +  loi_normale(xi,x_mu,sigma)
 			i = i + 1 
 		end do 
