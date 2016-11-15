@@ -42,14 +42,21 @@ program mon_main
 	use constants 
 !	implicit none
 	implicit none
-	real(kind = precR):: fonction,loi_normale
+	real(kind = precR):: fonction, loi_normale, valeur, x1, x2, moy, ecart, pas
 	fonction = loi_normale(1.0,0.0,1.0)
-	write(*,*) "La valeur de la loi normale centrée réduite au point 0. est"
-	write(*,*) fonction
+!	write(*,*) "La valeur de la loi normale centrée réduite au point 0. est"
+!	write(*,*) fonction
+	x1 = -1.0
+	x2 = 1.0 
+	moy = 0.0 
+	ecart = 1 
+	pas = 0.1 
+  	call methode_rect(loi_normale,ecart,moy,x1,x2,pas,valeur)
+	write(*,*) "La valeur de l'intégrale de la loi normale",valeur 
+		
 end program mon_main 
 
 			
-		
 		
 	
 
