@@ -67,20 +67,39 @@ program mon_main
 	use constants 
 !	implicit none
 	implicit none
-	real(kind = precR):: fonction, loi_normale, valeur, x1, x2, moy, ecart, pas,maval
-	fonction = loi_normale(1.0,0.0,1.0)
-	write(*,*) "La valeur de la loi normale centrée réduite au point 0. est"
-	write(*,*) fonction
-	x1 = -1.0
-	x2 = 1.0 
+	real(kind = precR)::loi_normale, valeur, x1, x2
+	real(kind = precR)::moy, ecart, pas,maval,xi,densite, repartition
+	integer ( kind = precI) ::  nl ! nombre de ligne du fichier  repartition.dat                                 
+!	fonction = loi_normale(1.0,0.0,1.0)
+!	write(*,*) "La valeur de la loi normale centrée réduite au point 0. est"
+!	write(*,*) fonction
+	!x1 = -1.0
+	!x2 = 1.0 
 	moy = 1.0 
 	ecart = 2 
-	pas = 0.01
-	open (unit=10,file=donnee.dat,action="read",status="old") 
+	!pas = 0.01
+	open (unit=10,file="donnee.dat",form = "formatted")! ouverture d'un fichier de donnéé 
+        read(10,*)pas,x1,x2! lectures des données du fichier
+        write(*,*)"Les données du fichier sont",pas,x1,x2
   	call methode_trap(loi_normale,ecart,moy,x1,x2,pas,maval)
   	call methode_rect(loi_normale,ecart,moy,x1,x2,pas,valeur)
+        close(10)
 	write(*,*) "La valeur de l'intégrale de la loi normale par la methode des rectangles est: ",valeur 
 	write(*,*) "La valeur de l'intégrale de la loi normale par la methode des trapèzes est: ",maval 
+	open (unit=11,file="repartition.dat",form = "formatted")! ouverture du fichier de la fonction de repartition 
+	open (unit=12,file="loinormaleCR.dat",form = "formatted")! ouverture du fichier à remplir par la loi normale centrée réduite
+	nl = 1 ! premiere ligne
+	! lecture du fichier repartition.dat
+	do  while(nl<151)
+		read(11,*)xi,repartition
+		densite = loi_normale(xi,0.0,1.0)
+		write(12,*)xi,repartition,densite
+		write(*,*)xi,repartition,densite
+		nl = nl + 1 
+	!	close(11) 
+		close(12) 
+	end do
+	close(11) 
 		
 end program mon_main 
 
