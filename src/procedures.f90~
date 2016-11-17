@@ -69,7 +69,6 @@ program mon_main
 	implicit none
 	real(kind = precR)::loi_normale, valeur, x1, x2
 	real(kind = precR)::moy, ecart, pas,maval,xi,densite, repartition
-	real(kind = precR)::moy1,ecart1,densite1
 	integer ( kind = precI) ::  nl ! nombre de ligne du fichier  repartition.dat                                 
 !	fonction = loi_normale(1.0,0.0,1.0)
 !	write(*,*) "La valeur de la loi normale centrée réduite au point 0. est"
@@ -77,9 +76,7 @@ program mon_main
 	!x1 = -1.0
 	!x2 = 1.0 
 	moy = 1.0 
-	ecart = 2
-	ecart1 = sqrt(0.5)
-	moy1 =	-2 
+	ecart = 2 
 	!pas = 0.01
 	open (unit=10,file="donnee.dat",form = "formatted")! ouverture d'un fichier de donnéé 
         read(10,*)pas,x1,x2! lectures des données du fichier
@@ -89,31 +86,20 @@ program mon_main
         close(10)
 	write(*,*) "La valeur de l'intégrale de la loi normale par la methode des rectangles est: ",valeur 
 	write(*,*) "La valeur de l'intégrale de la loi normale par la methode des trapèzes est: ",maval 
-	open (unit=10,file="repartition.dat")! ouverture du fichier de la fonction de repartition 
-	open (unit=13,file="loinormaleMuSigma.dat")! ouverture du fichier à remplir par la loi normale centrée réduite
+	open (unit=11,file="repartition.dat",form = "formatted")! ouverture du fichier de la fonction de repartition 
+	open (unit=12,file="loinormaleCR.dat",form = "formatted")! ouverture du fichier à remplir par la loi normale centrée réduite
 	nl = 1 ! premiere ligne
 	! lecture du fichier repartition.dat
-	do nl = 1,150
-		read(10,*)xi,repartition
-		write(*,*)xi,repartition
-	end do
-	close(10)
-	open (unit=11,file="repartition.dat")! ouverture du fichier de la fonction de repartition 
-	open (unit=12,file="loinormaleCR.dat")! ouverture du fichier à remplir par la loi normale centrée réduite
-! lecture et ecriture dans un autre fichier	
-	do  nl=1,150
+	do  while(nl<151)
 		read(11,*)xi,repartition
-		densite = loi_normale(xi,0.0,1.0)!loi normale centrée réduite
-		densite1 = loi_normale(xi,moy1,ecart1)! loi normale mu = -2 sigma^2 = 0.5 
+		densite = loi_normale(xi,0.0,1.0)
 		write(12,*)xi,repartition,densite
-		write(13,*)xi,repartition,densite1
-	!	write(*,*)xi,repartition,densite1
-	!	nl = nl + 1 
+		write(*,*)xi,repartition,densite
+		nl = nl + 1 
 	!	close(11) 
 	end do
 	close(12) 
 	close(11) 
-	close(13) 
 		
 end program mon_main 
 
