@@ -11,7 +11,7 @@ end module constants
 		use constants 
 		implicit none
 		real(kind=precR)  :: xx, sigma,x_mu,j
-		j = (1/(sigma*sqrt(2*pi)))*exp((-1/2)*((xx-x_mu)/sigma)**2)
+		j = (1/(sigma*sqrt(2*pi)))*exp(-(xx-x_mu)**2/(2*sigma**2))
 	end function loi_normale
 	! Integration par la methode des rectangles	
 	! de loi_normale(,mu,sigma) sur [x_min;x_max] avec le pas h_step
@@ -84,8 +84,8 @@ program mon_main
 	open (unit=10,file="donnee.dat",form = "formatted")! ouverture d'un fichier de donnéé 
         read(10,*)pas,x1,x2! lectures des données du fichier
         write(*,*)"Les données du fichier sont",pas,x1,x2
-  	call methode_trap(loi_normale,ecart,moy,x1,x2,pas,maval)
-  	call methode_rect(loi_normale,ecart,moy,x1,x2,pas,valeur)
+  	call methode_trap(loi_normale,ecart,moy,x1,x2,pas,maval)!Appel de la méthode des trapèzes
+  	call methode_rect(loi_normale,ecart,moy,x1,x2,pas,valeur)!Appel de la méthode des rectangles
         close(10)
 	write(*,*) "La valeur de l'intégrale de la loi normale par la methode des rectangles est: ",valeur 
 	write(*,*) "La valeur de l'intégrale de la loi normale par la methode des trapèzes est: ",maval 
